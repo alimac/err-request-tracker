@@ -1,0 +1,9 @@
+[Core]
+Name = RT 
+Module = rt 
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = Integration with Request Tracker 
