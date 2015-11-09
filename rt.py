@@ -14,7 +14,7 @@ class RT(BotPlugin):
     def check_configuration(self, configuration):
         pass
 
-    def login(self):
+    def rt_login(self):
         if self.tracker:
            return
 
@@ -29,7 +29,7 @@ class RT(BotPlugin):
     def ticket_summary(self, ticket_id):
         ticket_url = self.config['URL'] + "/Ticket/Display.html?id=" + ticket_id
 
-        self.login()
+        self.rt_login()
         ticket = self.tracker.get_ticket(ticket_id)
 
         return "'%s' in %s from %s\n%s" % (
