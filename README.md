@@ -34,8 +34,10 @@ An example configuration might look like:
 
 ```
 !plugin config RT
-{ "REST_URL" : "http://rt.example.com/REST/1.0", "USER" : "err",
-  "PASSWORD" : "foo", "DISPLAY_URL" : "https://rt.example.com/Ticket/Display.html?id=" }
+{ "REST_URL" : "http://rt.example.com/REST/1.0",
+  "USER" : "err",
+  "PASSWORD" : "foo",
+  "DISPLAY_URL" : "https://rt.example.com/Ticket/Display.html?id=" }
 ```
 
 ## Usage
