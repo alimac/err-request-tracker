@@ -9,7 +9,7 @@ class RT(BotPlugin):
     tracker = None
 
     def get_configuration_template(self):
-        return {'USER':'changeme','PASSWORD':'changeme','URL':'http://changeme'}
+        return {'USER':'','PASSWORD':'','REST_URL':'', 'DISPLAY_URL':''}
 
     def check_configuration(self, configuration):
         pass
@@ -18,7 +18,7 @@ class RT(BotPlugin):
         if self.tracker:
            return
 
-        self.tracker = rt.Rt('%s/REST/1.0/' % self.config['URL'])
+        self.tracker = rt.Rt(self.config['REST_URL'])
         response = self.tracker.login(self.config['USER'], self.config['PASSWORD'])
 
     @re_botcmd(pattern=r'(^| )(\d{6,})( |$)', prefixed=False, flags=re.IGNORECASE)
@@ -27,14 +27,13 @@ class RT(BotPlugin):
         self.send(message.frm, self.ticket_summary(ticket), message_type=message.type)
 
     def ticket_summary(self, ticket_id):
-        ticket_url = self.config['URL'] + "/Ticket/Display.html?id=" + ticket_id
 
         self.rt_login()
         ticket = self.tracker.get_ticket(ticket_id)
 
-        return "'%s' in %s from %s\n%s" % (
+        return "[%s](%s) in %s from %s" % (
             format(ticket.get("Subject", "No subject")),
+            format(self.config['DISPLAY_URL'] + ticket_id),
             format(ticket.get("Queue")),
-            format(ticket.get("Requestors")),
-            format(ticket_url),
+            format(', '.join(ticket.get("Requestors")))
         )
