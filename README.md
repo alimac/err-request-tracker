@@ -56,5 +56,5 @@ General from customer@example.com
 
 For backends that support HTML display, the reply might look like:
 
-[Website is down!](https://rt.example.com/Ticket/Display.html?id=1173397) in
+> [Website is down!](https://rt.example.com/Ticket/Display.html?id=1173397) in
 General from customer@example.com
