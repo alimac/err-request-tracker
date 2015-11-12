@@ -29,11 +29,16 @@ class RT(BotPlugin):
     def ticket_summary(self, ticket_id):
 
         self.rt_login()
-        ticket = self.tracker.get_ticket(ticket_id)
 
-        return "[%s](%s) in %s from %s" % (
-            format(ticket.get("Subject", "No subject")),
-            format(self.config['DISPLAY_URL'] + ticket_id),
-            format(ticket.get("Queue")),
-            format(', '.join(ticket.get("Requestors")))
-        )
+        try:
+            ticket = self.tracker.get_ticket(ticket_id)
+
+            return "[%s](%s) in %s from %s" % (
+                format(ticket.get("Subject", "No subject")),
+                format(self.config['DISPLAY_URL'] + ticket_id),
+                format(ticket.get("Queue")),
+                format(', '.join(ticket.get("Requestors")))
+            )
+
+        except:
+            return "Sorry, that ticket does not exist or I cannot access it."
