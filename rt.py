@@ -21,7 +21,7 @@ class RT(BotPlugin):
         self.tracker = rt.Rt(self.config['REST_URL'])
         response = self.tracker.login(self.config['USER'], self.config['PASSWORD'])
 
-    @re_botcmd(pattern=r'(^| )(\d{3,})( |$)', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'(^| )(\d{3,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
     def find_ticket(self, message, match):
         ticket = match.group(2)
         self.send(message.frm, self.ticket_summary(ticket), message_type=message.type)
