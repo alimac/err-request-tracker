@@ -9,7 +9,7 @@ class RT(BotPlugin):
     tracker = None
 
     def get_configuration_template(self):
-        return {'USER':'','PASSWORD':'','REST_URL':'', 'DISPLAY_URL':''}
+        return {'USER':'','PASSWORD':'','REST_URL':'', 'DISPLAY_URL':'', 'MINIMUM_TICKET_ID':1}
 
     def check_configuration(self, configuration):
         pass
@@ -21,10 +21,12 @@ class RT(BotPlugin):
         self.tracker = rt.Rt(self.config['REST_URL'])
         response = self.tracker.login(self.config['USER'], self.config['PASSWORD'])
 
-    @re_botcmd(pattern=r'(^| )(\d{3,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'(^| )(\d{1,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
     def find_ticket(self, message, match):
         ticket = match.group(2)
-        self.send(message.frm, self.ticket_summary(ticket), message_type=message.type)
+
+        if int(ticket) >= self.config['MINIMUM_TICKET_ID']:
+            self.send(message.frm, self.ticket_summary(ticket), message_type=message.type)
 
     def ticket_summary(self, ticket_id):
 
