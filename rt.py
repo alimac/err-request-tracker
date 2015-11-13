@@ -21,9 +21,13 @@ class RT(BotPlugin):
         self.tracker = rt.Rt(self.config['REST_URL'])
         response = self.tracker.login(self.config['USER'], self.config['PASSWORD'])
 
-    @re_botcmd(pattern=r'(^| )(\d{1,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
+    @re_botcmd(pattern=r'(^| |https?\:\/\/.+=)(\d{1,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
     def find_ticket(self, message, match):
+        url = match.group(1)
         ticket = match.group(2)
+
+        if url and url != self.config['DISPLAY_URL']:
+            return
 
         if int(ticket) >= self.config['MINIMUM_TICKET_ID']:
             self.send(message.frm, self.ticket_summary(ticket), message_type=message.type)
