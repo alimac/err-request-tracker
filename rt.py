@@ -23,6 +23,7 @@ class RT(BotPlugin):
 
     @re_botcmd(pattern=r'(^| |https?\:\/\/.+=)(\d{1,})( |\?|\.|,|:|\!|$)', prefixed=False, flags=re.IGNORECASE)
     def find_ticket(self, message, match):
+        """ Look up ticket metadata (also works without prefix). Example: 12345 """
         url = match.group(1)
         ticket = match.group(2)
 
