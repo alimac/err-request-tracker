@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/alimac/err-request-tracker.svg?branch=master)](https://travis-ci.org/alimac/err-request-tracker)
+
 # Request Tracker plugin for Errbot
 
 [Errbot](http://errbot.net) is a Python-based bot. This is is a plugin for
