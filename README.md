@@ -29,6 +29,8 @@ In a private chat with your bot:
 `https://localhost/Ticket/Display.html?id=`)
 - **USER** - username used to log in
 - **PASSWORD** - password user to log in
+- **MINIMUM_TICKET_ID** - optional minimum ticket value for ticket searches
+(helps to avoid triggering the bot on every numerical value posted in chat)
 
 An example configuration might look like:
 
