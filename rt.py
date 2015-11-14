@@ -1,7 +1,14 @@
 import re
 import rt
-
+from itertools import chain
 from errbot import BotPlugin, botcmd, re_botcmd
+
+CONFIG_TEMPLATE = { 'USER':'',
+                    'PASSWORD':'',
+                    'REST_URL':'',
+                    'DISPLAY_URL':'',
+                    'MINIMUM_TICKET_ID':1 }
+
 
 class RT(BotPlugin):
     """Request Tracker plugin for Err"""
@@ -9,10 +16,22 @@ class RT(BotPlugin):
     tracker = None
 
     def get_configuration_template(self):
-        return {'USER':'','PASSWORD':'','REST_URL':'', 'DISPLAY_URL':'', 'MINIMUM_TICKET_ID':1}
+        return CONFIG_TEMPLATE
 
-    def check_configuration(self, configuration):
-        pass
+    def configure(self, configuration):
+        if configuration is not None and configuration != {}:
+            config = dict(chain(CONFIG_TEMPLATE.items(), configuration.items()))
+        else:
+            config = CONFIG_TEMPLATE
+
+        super(RT, self).configure(config)
+
+    def check_configuration(self, config):
+
+        for key in ['REST_URL','DISPLAY_URL','USER','PASSWORD']:
+
+           if key not in config:
+               raise Exception(key + "is missing")
 
     def rt_login(self):
         if self.tracker:
