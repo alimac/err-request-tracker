@@ -1,0 +1,16 @@
+language: python
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+install:
+  - pip install -q err pytest pytest-pep8 --use-wheel
+  - pip install -q coverage coveralls --use-wheel
+  - pip install -q -r requirements.txt
+script:
+  - coverage run --source requesttracker -m py.test --pep8
+after_success:
+  - coveralls
+notifications:
+  email: false
