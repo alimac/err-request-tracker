@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/alimac/err-request-tracker.svg?branch=master)](https://travis-ci.org/alimac/err-request-tracker)
+[![Coverage Status](https://coveralls.io/repos/alimac/err-request-tracker/badge.svg?branch=master&service=github)](https://coveralls.io/github/alimac/err-request-tracker?branch=master)
 
 # Request Tracker plugin for Errbot
 
