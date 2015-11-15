@@ -42,3 +42,15 @@ class TestRT(object):
             RT_CONFIG['DISPLAY_URL'],
             str(ticket_id),
             test_requestor) in testbot.pop_message()
+
+    def test_find_nonexistent_ticket(self, testbot):
+
+        testbot.push_message('!plugin config RT ' + str(RT_CONFIG))
+        assert 'Plugin configuration done.' in testbot.pop_message()
+
+        tracker = rt.Rt(RT_CONFIG['REST_URL'])
+        tracker.login(RT_CONFIG['USER'], RT_CONFIG['PASSWORD'])
+
+        testbot.push_message('999999999999999999999999999999999999999999999')
+        expected = "Sorry, that ticket does not exist or I cannot access it."
+        assert expected in testbot.pop_message()
