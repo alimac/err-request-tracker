@@ -3,7 +3,7 @@
 
 # Request Tracker plugin for Errbot
 
-Request Tracker is a plugin for [Errbot](http://errbot.io) a Python-based chat
+**Request Tracker** is a plugin for [Errbot](http://errbot.io) a Python-based chat
 bot. The plugin allows you to query tickets in [RT: Request Tracker](https://www.bestpractical.com/rt/),
 an issue tracking system.
 
@@ -65,3 +65,32 @@ For backends that support HTML display, the reply might look like:
 
 > [Website is down!](https://rt.example.com/Ticket/Display.html?id=1173397) in
 General from customer@example.com
+
+
+## Updates
+
+To update the plugin, tell your bot in private chat:
+
+```
+!repos update err-request-tracker
+```
+
+## Development
+
+The test suite for this plugin makes use of environment variables to set
+the URLs and RT credentials:
+
+- **RT_REST_URL**
+- **RT_DISPLAY_URL**
+- **RT_USER**
+- **RT_PASSWORD**
+
+These environmental variables correspond to the plugin configuration variables
+(by setting environment variables, you can provide credentials to a continuous
+integration service like Travis or Circle.
+
+## Acknowledgements
+
+[Easter Eggs](http://www.easter-eggs.com/) hosts
+a [demo instance of RT](http://rt.easter-eggs.org/demos/) which I used in developing
+tests for this plugin.
