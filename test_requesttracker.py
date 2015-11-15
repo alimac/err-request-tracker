@@ -21,6 +21,7 @@ class TestRT(object):
     def test_find_ticket(self, testbot):
         test_subject = 'err-request-tracker'
         test_requestor = 'foo@example.com'
+        test_text = 'Testing https://github.com/alimac/err-request-tracker'
 
         testbot.push_message('!plugin config RT ' + str(RT_CONFIG))
         assert 'Plugin configuration done.' in testbot.pop_message()
@@ -31,7 +32,8 @@ class TestRT(object):
         try:
             ticket_id = tracker.create_ticket(Queue='General',
                                               Subject=test_subject,
-                                              Requestors=test_requestor)
+                                              Requestors=test_requestor,
+                                              Text=test_text)
             ticket = tracker.get_ticket(ticket_id)
         except Exception as e:
             raise Exception("Unable to create a test ticket: " + str(e))
