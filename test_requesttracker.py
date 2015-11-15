@@ -105,8 +105,7 @@ class TestRT(object):
 
         testbot.push_message('http://example.com?id=123')
 
-        reply = None
         try:
-            reply = testbot.pop_message(block=False)
+            testbot.pop_message(block=False)
         except:
-            assert reply is None
+            pass
