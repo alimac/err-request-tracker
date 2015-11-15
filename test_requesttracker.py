@@ -63,3 +63,15 @@ class TestRT(object):
         testbot.push_message('999999999999999999999999999999999999999999999')
         expected = "Sorry, that ticket does not exist or I cannot access it."
         assert expected in testbot.pop_message()
+
+    def test_non_rt_url(self, testbot):
+        testbot.push_message('!plugin config RT ' + str(RT_CONFIG))
+        assert 'Plugin configuration done.' in testbot.pop_message()
+
+        testbot.push_message('http://example.com?id=123')
+
+        reply = None
+        try:
+            reply = testbot.pop_message(block=False)
+        except:
+            assert reply is None
