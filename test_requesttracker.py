@@ -15,6 +15,11 @@ BAD_PASSWORD = {'USER': os.environ.get('RT_USER'),
                 'DISPLAY_URL': os.environ.get('RT_DISPLAY_URL'),
                 'REST_URL': os.environ.get('RT_REST_URL')}
 
+BAD_URL = {'USER': os.environ.get('RT_USER'),
+           'PASSWORD': 'badpassword',
+           'DISPLAY_URL': os.environ.get('RT_DISPLAY_URL'),
+           'REST_URL': 'http://foo.example.com'}
+
 
 class TestRT(object):
     extra_plugin_dir = '.'
@@ -37,6 +42,15 @@ class TestRT(object):
 
         testbot.push_message('!plugin activate RT')
         expected = "RT failed to start : Authentication failed"
+        assert expected in testbot.pop_message()
+
+    def test_configuration_url(self, testbot):
+        testbot.push_message('!plugin config RT ' + str(BAD_URL))
+        assert 'Plugin configuration done.' in testbot.pop_message()
+
+        testbot.push_message('!plugin activate RT')
+        expected = "RT failed to start : Cannot connect to RT as %s:" % (
+           BAD_URL['USER'])
         assert expected in testbot.pop_message()
 
     def test_find_ticket(self, testbot):
