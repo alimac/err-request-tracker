@@ -54,7 +54,7 @@ class TestRT(object):
         assert expected in testbot.pop_message()
 
     def test_find_ticket(self, testbot):
-        test_subject = 'err-request-tracker'
+        test_subject = 'RT plugin for Errbot - automated test'
         test_requestor = 'foo@example.com'
         test_text = 'Testing https://github.com/alimac/err-request-tracker'
 
