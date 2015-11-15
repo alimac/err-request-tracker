@@ -10,6 +10,11 @@ RT_CONFIG = {'USER': os.environ.get('RT_USER'),
              'DISPLAY_URL': os.environ.get('RT_DISPLAY_URL'),
              'REST_URL': os.environ.get('RT_REST_URL')}
 
+BAD_PASSWORD = {'USER': os.environ.get('RT_USER'),
+                'PASSWORD': 'badpassword',
+                'DISPLAY_URL': os.environ.get('RT_DISPLAY_URL'),
+                'REST_URL': os.environ.get('RT_REST_URL')}
+
 
 class TestRT(object):
     extra_plugin_dir = '.'
@@ -24,6 +29,14 @@ class TestRT(object):
 
         testbot.push_message('!plugin activate RT')
         expected = "RT failed to start : missing config value: REST_URL"
+        assert expected in testbot.pop_message()
+
+    def test_configuration_login(self, testbot):
+        testbot.push_message('!plugin config RT ' + str(BAD_PASSWORD))
+        assert 'Plugin configuration done.' in testbot.pop_message()
+
+        testbot.push_message('!plugin activate RT')
+        expected = "RT failed to start : Authentication failed"
         assert expected in testbot.pop_message()
 
     def test_find_ticket(self, testbot):
