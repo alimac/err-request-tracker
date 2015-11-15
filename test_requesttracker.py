@@ -18,6 +18,14 @@ class TestRT(object):
         testbot.push_message('!plugin config RT ' + str(RT_CONFIG))
         assert 'Plugin configuration done.' in testbot.pop_message()
 
+    def test_configuration_empty(self, testbot):
+        testbot.push_message('!plugin config RT {}')
+        assert 'Plugin configuration done.' in testbot.pop_message()
+
+        testbot.push_message('!plugin activate RT')
+        expected = "RT failed to start : missing config value: REST_URL"
+        assert expected in testbot.pop_message()
+
     def test_find_ticket(self, testbot):
         test_subject = 'err-request-tracker'
         test_requestor = 'foo@example.com'
