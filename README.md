@@ -3,8 +3,8 @@
 
 # Request Tracker plugin for Errbot
 
-[Errbot](http://errbot.net) is a Python-based bot. This is is a plugin for
-Errbot that integrates with [RT: Request Tracker](https://www.bestpractical.com/rt/),
+Request Tracker is a plugin for [Errbot](http://errbot.io) a Python-based chat
+bot. The plugin allows you to query tickets in [RT: Request Tracker](https://www.bestpractical.com/rt/),
 an issue tracking system.
 
 ## Requirements
@@ -42,18 +42,20 @@ An example configuration might look like:
 { "REST_URL" : "http://rt.example.com/REST/1.0",
   "USER" : "err",
   "PASSWORD" : "foo",
-  "DISPLAY_URL" : "https://rt.example.com/Ticket/Display.html?id=" }
+  "DISPLAY_URL" : "https://rt.example.com/Ticket/Display.html?id=",
+  "MINIMUM_TICKET_ID" : 100000 }
 ```
 
 ## Usage
 
-Enter a ticket number in the chat:
+Enter a ticket number or full URL in the chat:
 ```
 1173397
-is anyone working on 1173397
+is anyone working on 1173397?
+https://rt.example.com/Ticket/Display.html?id=1173397
 ```
 
-Bot will reply with:
+Bot will reply with the ticket subject, URL, queue and requestor(s):
 ```
 Website is down! (https://rt.example.com/Ticket/Display.html?id=1173397) in
 General from customer@example.com
