@@ -87,6 +87,13 @@ class TestRT(object):
             str(ticket_id),
             test_requestor) in testbot.pop_message()
 
+        testbot.push_message("need help with " + str(ticket_id))
+        assert "%s (%s%s) in General from %s" % (
+            test_subject,
+            RT_CONFIG['DISPLAY_URL'],
+            str(ticket_id),
+            test_requestor) in testbot.pop_message()
+
     def test_find_nonexistent_ticket(self, testbot):
 
         testbot.push_message('!plugin config RT ' + str(RT_CONFIG))

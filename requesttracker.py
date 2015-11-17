@@ -15,7 +15,7 @@ class RT(BotPlugin):
     """Request Tracker plugin for Err"""
 
     tracker = None
-    re_find_ticket = r'(^| |https?\:\/\/.+=)(\d{1,})( |\?|\.|,|:|\!|$)'
+    re_find_ticket = r'(^| |(https?\:\/\/.+=))(\d{1,})( |\?|\.|,|:|\!|$)'
 
     def get_configuration_template(self):
         return CONFIG_TEMPLATE
@@ -53,8 +53,8 @@ class RT(BotPlugin):
     @re_botcmd(pattern=re_find_ticket, prefixed=False, flags=re.IGNORECASE)
     def find_ticket(self, message, match):
         """ Look up ticket metadata (works without prefix). Example: 12345 """
-        url = match.group(1)
-        ticket = match.group(2)
+        url = match.group(2)
+        ticket = match.group(3)
 
         if url and url != self.config['DISPLAY_URL']:
             return
