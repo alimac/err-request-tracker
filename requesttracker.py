@@ -60,8 +60,7 @@ class RT(BotPlugin):
             return
 
         if int(ticket) >= self.config['MINIMUM_TICKET_ID']:
-            self.send(message.frm, self.ticket_summary(ticket),
-                      message_type=message.type)
+            return self.ticket_summary(ticket)
 
     def ticket_summary(self, ticket_id):
 

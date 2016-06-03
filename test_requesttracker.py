@@ -30,27 +30,19 @@ class TestRT(object):
 
     def test_configuration_empty(self, testbot):
         testbot.push_message('!plugin config RT {}')
-        assert 'Plugin configuration done.' in testbot.pop_message()
-
-        testbot.push_message('!plugin activate RT')
-        expected = "RT failed to start : missing config value: REST_URL"
+        expected = "Incorrect plugin configuration: missing config value: "\
+            "REST_URL"
         assert expected in testbot.pop_message()
 
     def test_configuration_login(self, testbot):
         testbot.push_message('!plugin config RT ' + str(BAD_PASSWORD))
-        assert 'Plugin configuration done.' in testbot.pop_message()
-
-        testbot.push_message('!plugin activate RT')
-        expected = "RT failed to start : Authentication failed"
+        expected = "Incorrect plugin configuration: Authentication failed"
         assert expected in testbot.pop_message()
 
     def test_configuration_url(self, testbot):
         testbot.push_message('!plugin config RT ' + str(BAD_URL))
-        assert 'Plugin configuration done.' in testbot.pop_message()
-
-        testbot.push_message('!plugin activate RT')
-        expected = "RT failed to start : Cannot connect to RT as %s:" % (
-           BAD_URL['USER'])
+        expected = "Incorrect plugin configuration: Cannot connect to RT as"\
+            " %s:" % (BAD_URL['USER'])
         assert expected in testbot.pop_message()
 
     def test_find_ticket(self, testbot):
