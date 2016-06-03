@@ -9,7 +9,9 @@ install:
   - pip install -q coverage coveralls --use-wheel
   - pip install -q -r requirements.txt
 script:
-  - coverage run --source requesttracker -m py.test --pep8
+  - pep8 --statistics --show-source test_requesttracker.py
+  - coverage run --source requesttracker -m py.test
+
 after_success:
   - coveralls
 notifications:
